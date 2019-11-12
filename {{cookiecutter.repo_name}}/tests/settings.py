@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sites",
+    "django_extensions",
     "{{ cookiecutter.app_name }}",
 ]
 

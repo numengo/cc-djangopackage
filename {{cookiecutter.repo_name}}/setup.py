@@ -68,8 +68,8 @@ setup(
     license="{{ cookiecutter.open_source_license }}",
 {%- endif %}
     zip_safe=False,
-{ % - set kws = cookiecutter.keywords %}
-{ % - set kws_str = '["%s" + "{{ cookiecutter.repo_name }}"]' % kws.split(',') | join('", "') %}
+{%- set kws = cookiecutter.keywords %}
+{%- set kws_str = '["%s" + "{{ cookiecutter.repo_name }}"]' % kws.split(',') | join('", "') %}
     classifiers=[
         'Development Status :: 3 - Alpha',{% if '1.11' in cookiecutter.django_versions %}
         'Framework :: Django :: 1.11',{% endif %}{% if '2.0' in cookiecutter.django_versions %}

@@ -20,3 +20,31 @@ def remove_example_project(project_directory):
 # 1. Removes the example project if it isn't going to be used
 if '{{ cookiecutter.create_example_project }}'.lower() == 'n':
     remove_example_project(PROJECT_DIRECTORY)
+
+
+
+    print("""
+################################################################################
+################################################################################
+
+    You have succesfully created `{{ cookiecutter.repo_name }}`.
+
+################################################################################
+
+    You've used these cookiecutter parameters:
+{% for key, value in cookiecutter.items()|sort %}
+        {{ "{0:26}".format(key + ":") }} {{ "{0!r}".format(value).strip("u") }}
+{%- endfor %}
+
+################################################################################
+
+    To get started run these:
+
+        cd {{ cookiecutter.repo_name }}
+        git init
+        git add --all
+        git commit -m "Add initial project skeleton."
+        git remote add origin git@github.com:{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}.git
+        git push -u origin master
+
+""")
