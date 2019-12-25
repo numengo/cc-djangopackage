@@ -1,2 +1,8 @@
 {% if cookiecutter.models != "Comma-separated list of models" %}django-model-utils>=2.0{% endif %}
+# PROTECTED REGION ID({{cookiecutter.app_name}}.requirements.base.user) ENABLED START
 # Additional requirements go here
+{%- set i_deps = cookiecutter.requirements_install|replace(' ','') %}
+{%- for dep in i_deps.split(',') %}
+{{dep}}
+{% endfor -%}
+# PROTECTED REGION END

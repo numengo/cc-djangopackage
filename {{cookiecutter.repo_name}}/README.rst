@@ -11,7 +11,7 @@
 .. image:: https://codecov.io/gh/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/branch/master/graph/badge.svg
     :target: https://codecov.io/gh/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
 
-{{ cookiecutter.project_short_description}}
+{{ cookiecutter.short_description}}
 
 Documentation
 -------------
@@ -48,14 +48,15 @@ Add {{ cookiecutter.project_name }}'s URL patterns:
         ...
     ]
 
-Features
---------
-
 Settings are managed using
 `simple-settings <https://raw.githubusercontent.com/drgarcia1986/simple-settings>`__
 and can be overriden with configuration files (cfg, yaml, json) or with environment variables
-prefixed with {{ cookiecutter.package_name|upper }}_.
+prefixed with {{ cookiecutter.repo_name|upper }}_.
 
+Features
+--------
+
+* TODO
 
 Running Tests
 -------------

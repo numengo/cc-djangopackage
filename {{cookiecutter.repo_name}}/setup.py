@@ -3,6 +3,7 @@
 import os
 import re
 import sys
+from setuptools.command.install import install
 
 try:
     from setuptools import setup
@@ -51,10 +52,33 @@ if sys.argv[-1] == 'tag':
 readme = open('README.rst').read()
 history = open('HISTORY.rst').read().replace('.. :changelog:', '')
 
+install_requires = [
+    'future',
+{%- set i_deps = cookiecutter.requirements_install|replace(' ','') %}
+{%- set i_deps_str = "'%s'" % i_deps.split(',')|join("',\n    '") %}
+{%- if i_deps|trim %}
+    {{i_deps_str}}, {% endif %}
+]
+
+post_install_requires = [i for i in install_requires if ('-' in i or ':' in i or '.' in i)]
+install_requires = [i for i in install_requires if not ('-' in i or ':' in i or '.' in i)]
+
+
+# for setuptools to work properly, we need to install packages with - or : separately
+# and for that we need a hook
+# https://stackoverflow.com/questions/20288711/post-install-script-with-python-setuptools
+class PostInstallCommand(install):
+    """Post-installation for installation mode."""
+    def run(self):
+        if post_install_requires:
+            cmd = ['pip', 'install', '-q'] + post_install_requires
+            subprocess.check_call(cmd)
+        install.run(self)
+
 setup(
     name='{{ cookiecutter.repo_name }}',
     version=version,
-    description="""{{ cookiecutter.project_short_description }}""",
+    description="""{{ cookiecutter.short_description }}""",
     long_description=readme + '\n\n' + history,
     author='{{ cookiecutter.full_name }}',
     author_email='{{ cookiecutter.email }}',
@@ -63,9 +87,10 @@ setup(
         '{{ cookiecutter.app_name }}',
     ],
     include_package_data=True,
-    install_requires=[{% if cookiecutter.models != "Comma-separated list of models" %}"django-model-utils>=2.0",{% endif %}],
-{%- if cookiecutter.open_source_license in license_classifiers %}
-    license="{{ cookiecutter.open_source_license }}",
+    install_requires=install_requires,
+    requires=install_requires,
+{%- if cookiecutter.license in license_classifiers %}
+    license="{{ cookiecutter.license }}",
 {%- endif %}
     zip_safe=False,
 {%- set kws = cookiecutter.keywords %}
@@ -84,4 +109,8 @@ setup(
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
     ],
+    cmdclass = {
+        'install': PostInstallCommand,
+        # 'develop': PostInstallCommand,
+    },
 )

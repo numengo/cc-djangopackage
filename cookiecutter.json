@@ -1,17 +1,22 @@
 {
   "full_name": "Cedric ROMAN",
   "email": "roman@numengo.com",
-  "website": "http://www.numengo.com",
   "github_username": "numengo",
-  "project_name": "Django Package",
+  "project_name": "My Project",
+  "domain_name": "{{ cookiecutter.project_name|lower|replace(' ','-')}}.com",
+  "domain": "http://www.{{cookiecutter.domain_name}}",
   "repo_name": "django-{{ cookiecutter.project_name|lower|replace(' ','-') }}",
   "app_name": "{{ cookiecutter.project_name.lower()|replace(' ', '_')|replace('-', '_') }}",
   "app_config_name": "{{ cookiecutter.project_name.replace('_', ' ')|title()|replace(' ', '') }}Config",
-  "project_short_description": "An example package. Generated with cc-djangopackage.",
+  "short_description": "An example package. Generated with cc-djangopackage.",
+  "year": "2019",
   "keywords": "keyword1, keyword2",
+  "version": "0.1.0",
+  "license": ["GNU General Public License v3", "NUMENGO", "BSD 2-Clause License", "BSD 3-Clause License", "MIT license", "ISC license", "Apache Software License 2.0"],
   "models": "Comma-separated list of models",
   "django_versions": "1.11,2.0",
-  "version": "0.1.0",
   "create_example_project": "N",
-  "open_source_license": ["MIT", "BSD", "ISCL", "Apache Software License 2.0", "NUMENGO", "Not open source"]
+  "requirements_install": "",
+  "setup_requirements": "",
+  "test_requirements": ""
 }
